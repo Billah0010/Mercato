@@ -1,3 +1,4 @@
+
 import {
     MigrationInterface,
     QueryRunner,
@@ -5,12 +6,15 @@ import {
     TableIndex,
 } from "typeorm";
 
-export class CreateOrderItemsTable1775500022207 
+export class CreateOrderItemsTable1775500022207
 implements MigrationInterface {
+
     public async up(queryRunner: QueryRunner): Promise<void> {
+
         await queryRunner.createTable(
             new Table({
                 name: "order_items",
+
                 columns: [
                     {
                         name: "id",
@@ -27,7 +31,6 @@ implements MigrationInterface {
                         name: "product_id",
                         type: "uuid",
                         isNullable: false,
-
                     },
                     {
                         name: "product_name",
@@ -38,8 +41,9 @@ implements MigrationInterface {
                     {
                         name: "unit_price",
                         type: "decimal",
-                        precision: 10,  
-
+                        precision: 10,
+                        scale: 2,
+                        isNullable: false,
                     },
                     {
                         name: "quantity",
@@ -47,56 +51,60 @@ implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                        name:"created_at",
-                        type:"timestamp",
-                        default:"current_timestamp",
-                        
+                        name: "created_at",
+                        type: "timestamp",
+                        default: "CURRENT_TIMESTAMP",
                     },
                 ],
+
                 foreignKeys: [
                     {
-                        columnNames:["order_id"],
+                        name: "FK_OrderItems_Order",
+                        columnNames: ["order_id"],
                         referencedTableName: "orders",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE",
                     },
                     {
-                        columnNames:["product_id"],
+                        name: "FK_OrderItems_Product",
+                        columnNames: ["product_id"],
                         referencedTableName: "products",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE",
-
                     },
                 ],
-            checks: [
-          { expression: `"quantity" > 0` },
-          { expression: `"unit_price" >= 0` },
-        ],
-        }),
+
+                checks: [
+                    {
+                        name: "CHK_order_items_quantity",
+                        expression: `"quantity" > 0`,
+                    },
+                    {
+                        name: "CHK_order_items_unit_price",
+                        expression: `"unit_price" >= 0`,
+                    },
+                ],
+            })
         );
 
-
-    
-await queryRunner.createIndex(
+        await queryRunner.createIndex(
             "order_items",
             new TableIndex({
                 name: "IDX_order_items_order_id",
                 columnNames: ["order_id"],
             }),
-        ); 
-     
-await queryRunner.createIndex(
+        );
+
+        await queryRunner.createIndex(
             "order_items",
             new TableIndex({
                 name: "IDX_order_items_product_id",
                 columnNames: ["product_id"],
             }),
         );
+    }
 
-
-        }
-public async down(queryRunner: QueryRunner): Promise<void> {
+    public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable("order_items");
-}        
-        }
-                
+    }
+}

@@ -15,7 +15,8 @@ export class CreatePaymentsTable1775500022208 implements MigrationInterface{
                         name: "id",
                         type: "uuid",
                         isPrimary: true,
-                        default: "gen_random_uuid()",
+                        generationStrategy:"uuid",
+                        default: "uuid_generate_v4()",
                     },
                     {
                         name: "order_id",
@@ -27,8 +28,16 @@ export class CreatePaymentsTable1775500022208 implements MigrationInterface{
                         type:"enum",
                         enum: ["credit_card", "debit_card", "paypal"],
                         enumName: "payment_method_enum",
-                        default:"'pending'",
+                       
                         isNullable:false,
+                    },
+                    {
+                        name: "status",
+                        type: "enum",
+                        enum: ["pending", "paid", "failed", "refunded"],
+                        enumName: "payment_status_enum",
+                        default: "'pending'",
+                        isNullable: false,
                     },
                     {
                         name:"amount",

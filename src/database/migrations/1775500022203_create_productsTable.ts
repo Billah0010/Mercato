@@ -16,7 +16,8 @@ export class createProductsTable1775500022203 implements MigrationInterface{
                         name: "id",
                         type: "uuid",
                         isPrimary: true,
-                        default: "gen_random_uuid()",
+                        generationStrategy:"uuid",
+                        default: "uuid_generate_v4()",
                     },
                     {
                         name: "name",
@@ -75,12 +76,12 @@ export class createProductsTable1775500022203 implements MigrationInterface{
                     {
                         name: "created_at",
                         type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",
+                        default: "CURRENT_TIMESTAMP(6)",
                     },
                     {
                         name: "updated_at",
                         type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",
+                        default: "CURRENT_TIMESTAMP(6)",
                     },
                 ],
                 foreignKeys: [

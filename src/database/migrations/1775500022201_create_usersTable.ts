@@ -7,6 +7,10 @@ import {
 export class createUsersTable1775500022201 
 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
+                // Enable UUID extension
+        //await queryRunner.query(
+          //  `CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+        //);
         await queryRunner.createTable(
             new Table({
                 name: "users",
@@ -15,7 +19,13 @@ implements MigrationInterface {
                         name: "id",
                         type: "uuid",
                         isPrimary: true,
-                        default: "gen_random_uuid()",
+                        generationStrategy:"uuid",
+                        default: "uuid_generate_v4()",
+                    },
+                    {
+                        name:"name",
+                        type:"varchar",
+                        isNullable:false,
                     },
                     {
                         name: "email",
@@ -39,8 +49,9 @@ implements MigrationInterface {
                     {
                         name: "role",
                         type: "enum",
-                        enum: ["admin", "user"],
+                        enum: ["admin", "customer","seller"],
                         default: "'customer'",
+                        isNullable:false,
                     },
                     {
                         name: "isActive",

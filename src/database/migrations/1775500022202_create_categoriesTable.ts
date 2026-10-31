@@ -12,6 +12,14 @@ export class createCatagoriesTable1775500022202
                 name: "categories",
                 columns: [
                     {
+                        name:"id",
+                        type:"uuid",
+                        isPrimary:true,
+                        generationStrategy:"uuid",
+                        default:"uuid_generate_v4()",
+
+                    },
+                    {
                         name: "name",
                         type: "varchar",
                         length: "255",

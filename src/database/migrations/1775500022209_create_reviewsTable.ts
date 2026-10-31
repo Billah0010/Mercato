@@ -1,3 +1,4 @@
+
 import {
     MigrationInterface,
     QueryRunner,
@@ -5,11 +6,15 @@ import {
     TableIndex,
 } from "typeorm";
 
-export class CreateReviewsTable1775500022209 implements MigrationInterface {
+export class CreateReviewsTable1775500022209
+implements MigrationInterface {
+
     public async up(queryRunner: QueryRunner): Promise<void> {
+
         await queryRunner.createTable(
             new Table({
                 name: "reviews",
+
                 columns: [
                     {
                         name: "id",
@@ -40,32 +45,46 @@ export class CreateReviewsTable1775500022209 implements MigrationInterface {
                     {
                         name: "created_at",
                         type: "timestamp",
-                        default: "current_timestamp",
+                        default: "CURRENT_TIMESTAMP",
                     },
                     {
                         name: "updated_at",
                         type: "timestamp",
-                        default: "current_timestamp",
+                        default: "CURRENT_TIMESTAMP",
                     },
                 ],
+
                 foreignKeys: [
                     {
+                        name: "FK_Reviews_User",
                         columnNames: ["user_id"],
                         referencedTableName: "users",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE",
                     },
                     {
+                        name: "FK_Reviews_Product",
                         columnNames: ["product_id"],
                         referencedTableName: "products",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE",
                     },
                 ],
+
                 checks: [
-                    { expression: `"rating" BETWEEN 1 AND 5` },
+                    {
+                        name: "CHK_reviews_rating",
+                        expression: `"rating" BETWEEN 1 AND 5`,
+                    },
                 ],
-            }),
+
+                uniques: [
+                    {
+                        name: "UQ_reviews_user_product",
+                        columnNames: ["user_id", "product_id"],
+                    },
+                ],
+            })
         );
 
         await queryRunner.createIndex(

@@ -1,16 +1,20 @@
+
 import {
     MigrationInterface,
     QueryRunner,
     Table,
     TableIndex,
-
 } from "typeorm";
 
-export class createCarts1775500022204 implements MigrationInterface {
+export class createCarts1775500022204
+implements MigrationInterface {
+
     public async up(queryRunner: QueryRunner): Promise<void> {
+
         await queryRunner.createTable(
             new Table({
                 name: "carts",
+
                 columns: [
                     {
                         name: "id",
@@ -26,16 +30,17 @@ export class createCarts1775500022204 implements MigrationInterface {
                     {
                         name: "created_at",
                         type: "timestamp",
-                        default: "current_timestamp",
+                        default: "CURRENT_TIMESTAMP(6)",
                     },
                     {
                         name: "updated_at",
-                        type: "timestamp",  
-                        default: "current_timestamp",
+                        type: "timestamp",
+                        default: "CURRENT_TIMESTAMP(6)",
                     },
                 ],
+
                 foreignKeys: [
-                    {   
+                    {
                         name: "FK_Cart_User",
                         columnNames: ["user_id"],
                         referencedTableName: "users",
@@ -45,19 +50,18 @@ export class createCarts1775500022204 implements MigrationInterface {
                 ],
             })
         );
-    
-await queryRunner.createIndex(
+
+        await queryRunner.createIndex(
             "carts",
             new TableIndex({
+                name: "IDX_carts_user_id",
                 columnNames: ["user_id"],
-                }),
-
+                isUnique: true,
+            }),
         );
     }
 
-public async down(queryRunner: QueryRunner): Promise<void> {
+    public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable("carts");
     }
-
-}                
-                        
+}
