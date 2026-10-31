@@ -41,7 +41,7 @@ implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                       name: "PhnNo",
+                       name: "phnNo",
                        type: "varchar",
                        length:"12",
                        isNullable: false, 

@@ -79,6 +79,7 @@ export class createProductsTable1775500022203 implements MigrationInterface{
                         default: "CURRENT_TIMESTAMP(6)",
                     },
                     {
+                        
                         name: "updated_at",
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP(6)",
