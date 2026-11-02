@@ -3,6 +3,7 @@ import {
     QueryRunner,
     Table,
 } from "typeorm";
+import { Role } from "@/src/common/enums/role.enum";
 
 export class createUsersTable1775500022201 
 implements MigrationInterface {
@@ -28,7 +29,12 @@ implements MigrationInterface {
                         isNullable:false,
                     },
                     {
-                        name: "email",
+                        name:"name",
+                        type:"varchar",
+                        isNullable:false,
+                    },
+                    {
+                        name:"email",
                         type: "varchar",
                         length: "255",
                         isUnique: true,
@@ -41,7 +47,7 @@ implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                       name: "phnNo",
+                       name: "phn_no",
                        type: "varchar",
                        length:"12",
                        isNullable: false, 
@@ -49,12 +55,12 @@ implements MigrationInterface {
                     {
                         name: "role",
                         type: "enum",
-                        enum: ["admin", "customer","seller"],
-                        default: "'customer'",
+                        enum: Object.values(Role),
+                        default: `'${Role.USER}'`,
                         isNullable:false,
                     },
                     {
-                        name: "isActive",
+                        name: "is_active",
                         type: "boolean",
                         default: true,
                     },
