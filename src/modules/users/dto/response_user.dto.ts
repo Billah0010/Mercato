@@ -1,5 +1,5 @@
 
-import { Exclude, Expose } from "class-transformer";
+import { Expose } from "class-transformer";
 import { Role } from "../../../common/enums/role.enum";
 
 export class ResponseUserDto {
