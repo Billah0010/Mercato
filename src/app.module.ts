@@ -6,12 +6,15 @@ import { AppService } from "@/src/app.service";
 import global_config from "@/config/global_config";
 import { BullModule } from "@nestjs/bull";
 import { UsersModule } from "@/src/modules/users/users_module";
+import { CategoriesModule } from "@/src/modules/categories/categories_module";
+import { ProductsModule } from "@/src/modules/products/poducts_module";
 
 @Module({
   imports: [
     PostgresDatabaseProviderModule,
     UsersModule,
-
+    CategoriesModule,
+    ProductsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [],
