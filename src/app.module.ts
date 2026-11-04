@@ -8,6 +8,7 @@ import { BullModule } from "@nestjs/bull";
 import { UsersModule } from "@/src/modules/users/users_module";
 import { CategoriesModule } from "@/src/modules/categories/categories_module";
 import { ProductsModule } from "@/src/modules/products/poducts_module";
+import { CartsModule } from "@/src/modules/carts/carts_module";
 
 @Module({
   imports: [
@@ -15,6 +16,9 @@ import { ProductsModule } from "@/src/modules/products/poducts_module";
     UsersModule,
     CategoriesModule,
     ProductsModule,
+    CartsModule,
+
+
     ConfigModule.forRoot({
       isGlobal: true,
       load: [],
