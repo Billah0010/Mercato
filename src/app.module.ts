@@ -9,6 +9,7 @@ import { UsersModule } from "@/src/modules/users/users_module";
 import { CategoriesModule } from "@/src/modules/categories/categories_module";
 import { ProductsModule } from "@/src/modules/products/poducts_module";
 import { CartsModule } from "@/src/modules/carts/carts_module";
+import { CartItemsModule } from "@/src/modules/cartItems/cartItems_module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CartsModule } from "@/src/modules/carts/carts_module";
     CategoriesModule,
     ProductsModule,
     CartsModule,
+    CartItemsModule,
 
 
     ConfigModule.forRoot({
